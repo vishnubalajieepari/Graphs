@@ -1,0 +1,38 @@
+// new dfs method which is different from normal dfs used in undirected graphs where we maintain two visited arrays when the node having visited in two arrays then it
+is resulted that cycle is present in the graph
+bool check(int s,vector<int>adj[],vector<int>&vis,vector<int>&dfsvis)
+    {
+        vis[s]=1;
+        dfsvis[s]=1;
+        for(auto it:adj[s])
+        {
+            if(!vis[it])
+            {
+                if(check(it,adj,vis,dfsvis))
+                {
+                    return true;
+                }
+            }
+            else if(dfsvis[it])
+            {
+                return true;
+            }
+        }
+        dfsvis[s]=0;
+        return false;
+    }
+    bool isCyclic(int n, vector<int> adj[]) {
+        // code here
+        vector<int>vis(n,0),dfsvis(n,0);
+        for(int i=0;i<n;i++)
+        {
+            if(!vis[i])
+            {
+                if(check(i,adj,vis,dfsvis))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
