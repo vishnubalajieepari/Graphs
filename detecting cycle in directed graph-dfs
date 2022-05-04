@@ -36,3 +36,40 @@ bool check(int s,vector<int>adj[],vector<int>&vis,vector<int>&dfsvis)
         }
         return false;
     }
+    // using BFS with the help of toposort
+    // for cyclic graphs toposort cannot be perfomed so if the c is equal to no.of nodes or equal to the size of vector obtained in toposort then it results false
+    bool isCyclic(int n, vector<int> adj[]) {
+        // code here
+       queue<int>q;
+       vector<int>ve(n,0);
+       for(int i=0;i<n;i++)
+       {
+           for(auto it:adj[i])
+           {
+               ve[it]++;
+           }
+       }
+       for(int i=0;i<n;i++)
+       {
+           if(ve[i]==0)
+           {
+               q.push(i);
+           }
+       }
+       int c=0;
+       while(!q.empty())
+       {
+           int node=q.front();
+           q.pop();
+           c++;
+           for(auto it:adj[node])
+           {
+               ve[it]--;
+               if(ve[it]==0)
+               {
+                   q.push(it);
+               }
+           }
+       }
+       return c!=n;
+    }
