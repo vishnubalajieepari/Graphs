@@ -1,0 +1,25 @@
+//The output should be the distance vector contains distance from source to every node.
+vector<int>dijkstra(int V, vector<vector<int>>adj[], int s)
+    {
+        // Code here
+        vector<int>dist(V,INT_MAX);
+        queue<int>q;
+        q.push(s);
+        dist[s]=0;
+        while(!q.empty())
+        {
+            int node=q.front();
+            q.pop();
+            for(auto it:adj[node])
+            {
+                int n=it[0];//the adjacent vector contains the 2 parts as node and its weight
+                int wt=it[1];//weight
+                if(dist[n]>dist[node]+wt)
+                {
+                    dist[n]=dist[node]+wt;
+                    q.push(n);
+                }
+            }
+        }
+        return dist;
+    }
